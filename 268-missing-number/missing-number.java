@@ -1,15 +1,13 @@
 class Solution {
     public int missingNumber(int[] nums) {
-        int currentSum =0;
-        for(int num:nums){
-            currentSum += num;
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length-1;
+        while(left<=right){
+            int mid = left+(right-left)/2;
+            if(nums[mid] == mid) left = mid+1;
+            else  right = mid-1;
         }
-        int n = nums.length;
-        int rangeSum = 0;
-        for(int i=1;i<=n;i++){
-            rangeSum += i;
-        }
-
-        return rangeSum - currentSum;
+        return left;
     }
 }
