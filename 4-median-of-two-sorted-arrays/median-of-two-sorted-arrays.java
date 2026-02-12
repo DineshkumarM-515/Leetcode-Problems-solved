@@ -1,33 +1,36 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        ArrayList<Integer> list = new ArrayList<>();
-        int p1= 0;
-        int p2= 0;
-        while(p1 < nums1.length && p2<nums2.length){
-            if(nums1[p1] < nums2[p2]){
-                list.add(nums1[p1]);
-                p1++;
-            } 
+        int n = nums1.length;
+        int m = nums2.length;
+
+        if(n > m) return findMedianSortedArrays(nums2,nums1);
+
+        int low = 0;
+        int high = n;
+        while(low <= high){
+            int partitionA = (low+high)/2;
+            int partitionB = (n+m+1)/2 - partitionA;
+
+            int maxLeftA = (partitionA == 0) ? Integer.MIN_VALUE : nums1[partitionA-1];
+            int minRightA = (partitionA == n) ? Integer.MAX_VALUE : nums1[partitionA];
+            int maxLeftB = (partitionB == 0) ? Integer.MIN_VALUE : nums2[partitionB-1];
+            int minRightB = (partitionB == m) ? Integer.MAX_VALUE : nums2[partitionB];
+
+            if(maxLeftA <= minRightB && maxLeftB <= minRightA){
+                if((n+m)%2 == 0){
+                    return(Math.max(maxLeftA,maxLeftB)+Math.min(minRightA,minRightB))/2.0;
+                }
+                else{
+                    return Math.max(maxLeftA,maxLeftB);
+                }
+            }
+            else if(maxLeftA > minRightB){
+                high = partitionA-1;
+            }
             else{
-                list.add(nums2[p2]);
-                p2++;
+                low = partitionA+1;
             }
         }
-
-        while(p1 < nums1.length){
-            list.add(nums1[p1++]);
-        }
-        while(p2 < nums2.length){
-            list.add(nums2[p2++]);
-        }
-
-        int s = list.size();
-
-        int median = s / 2;
-        if(s%2 != 0){
-            return list.get(median);
-        }
-
-        return ((double)(list.get(median-1) + list.get(median) ) )/ 2.0;
+        return 0.0;
     }
 }
