@@ -1,10 +1,12 @@
 class Node {
     int data;
     Node next;
+    Node prev;
 
     Node(int val) {
         this.data = val;
         this.next = null;
+        this.prev = null;
     }
 }
 
@@ -31,6 +33,12 @@ class MyLinkedList {
 
     public void addAtHead(int val) {
         Node newnode = new Node(val);
+        if(head == null){
+            head = newnode;
+            length++;
+            return;
+        }
+        head.prev = newnode;
         newnode.next = head;
         head = newnode;
         length++;
@@ -42,13 +50,14 @@ class MyLinkedList {
             return;
         }
         Node newnode = new Node(val);
-        length++;
+       
         Node temp = head;
         while (temp.next != null) {
             temp = temp.next;
         }
-
         temp.next = newnode;
+        newnode.prev = temp;
+        length++;
 
     }
 
@@ -64,11 +73,14 @@ class MyLinkedList {
         } else {
             Node newnode = new Node(val);
             Node temp = head;
-            for (int i = 0; i < index - 1; i++) {
+            for (int i = 0; i < index-1 ; i++) {
                 temp = temp.next;
             }
             newnode.next = temp.next;
+            newnode.prev = temp;
+            temp.next.prev = newnode;
             temp.next = newnode;
+            
             length++;
         }
     }
@@ -79,15 +91,17 @@ class MyLinkedList {
         }
         Node temp = head;
         
-        if (index == 0)
+        if (index == 0){
             head = head.next;
-            
+            if(head != null) head.prev = null;
+        }
+
         else {
             for (int i = 0; i < index-1; i++) {
                 temp = temp.next;
             }
             temp.next = temp.next.next;
-            
+            if(temp.next != null) temp.next.prev = temp;
         }
         length--;
     }
