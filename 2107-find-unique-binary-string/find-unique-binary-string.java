@@ -18,10 +18,7 @@ class Solution {
             if(!li.contains(sb.toString())) {
                 return sb.toString();
             }
-
         }
-
         return "";
-
     }
 }
