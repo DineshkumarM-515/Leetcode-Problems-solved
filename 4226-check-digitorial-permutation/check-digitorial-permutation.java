@@ -1,20 +1,12 @@
 class Solution {
-    public int fact(int n){
-        int fact = 1;
-        while(n > 0){
-            fact *= n;
-            n--;
-        }
-
-        return fact;
-    }
-
     public boolean isDigitorialPermutation(int n) {
         int sum = 0;
         int ori = n;
+        int[] fact = {1,1,2,6,24,120,720,5040,40320,362880};
+
         while(n > 0){
             int dig = n % 10;
-            sum += fact(dig);
+            sum += fact[dig];
             n /= 10;
         }
 
