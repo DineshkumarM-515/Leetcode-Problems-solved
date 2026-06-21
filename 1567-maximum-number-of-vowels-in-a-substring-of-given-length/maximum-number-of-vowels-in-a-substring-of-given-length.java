@@ -1,19 +1,25 @@
 class Solution {
     public int maxVowels(String s, int k) {
-        Set<Character> vowels = new HashSet<>(Arrays.asList('a','e','i','o','u'));
-        int no_of_letters = 0;
+        int current_letters = 0;
         int window_letters = 0;
-        char[] ch = s.toCharArray();
+        int n = s.length();
         for(int i=0;i<k;i++){
-            if(vowels.contains(ch[i])) window_letters++;
+            char c = s.charAt(i);
+            int cnt2 = 0;
+            if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'){
+                window_letters++;
+            }
         }
-        no_of_letters = window_letters;
+
+        current_letters = window_letters;
+        for(int i=k;i<n;i++){
+            if( s.charAt(i-k) == 'a' || s.charAt(i-k) == 'e' || s.charAt(i-k) == 'i' || s.charAt(i-k) == 'o' || s.charAt(i-k) == 'u') window_letters--;
+            
+            if(s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u') window_letters++;
+
+            current_letters = Math.max(current_letters, window_letters);
+        }
         
-        for(int i=k;i<ch.length;i++){
-            if(vowels.contains(ch[i-k])) window_letters--;
-            if(vowels.contains(ch[i])) window_letters++;
-            no_of_letters = Math.max(no_of_letters , window_letters);
-        }
-        return no_of_letters;
+        return current_letters;
     }
 }
