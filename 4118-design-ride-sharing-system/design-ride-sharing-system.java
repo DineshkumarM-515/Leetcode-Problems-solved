@@ -22,7 +22,7 @@ class RideSharingSystem {
     }
     
     public void cancelRider(int riderId) {
-        Rider.remove(Integer.valueOf(riderId));
+        Rider.remove(riderId);
     }
 }
 
