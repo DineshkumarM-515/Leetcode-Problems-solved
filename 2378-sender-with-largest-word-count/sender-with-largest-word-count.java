@@ -6,7 +6,7 @@ class Solution {
             String[] words = messages[i].split(" ");
             int len = words.length;
             if(!map.containsKey(senders[i])){
-                map.putIfAbsent(senders[i] , len);
+                map.put(senders[i] , len);
             }
             else{
                 map.put(senders[i], map.get(senders[i])+len);
