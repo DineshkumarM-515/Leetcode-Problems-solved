@@ -5,13 +5,13 @@ class Solution {
         int m = potions.length;
         Arrays.sort(potions);
         for(int i=0;i<n;i++){
-            int elem = spells[i];
+            //int elem = spells[i];
             int left = 0;
             int right = m-1;
             int idx = -1;
             while(left <= right){
                 int mid = left+(right-left)/2;
-                if((long) potions[mid]*elem >= success){
+                if((long) potions[mid]*spells[i] >= success){
                     idx = mid;
                     right = mid-1;
                 }
