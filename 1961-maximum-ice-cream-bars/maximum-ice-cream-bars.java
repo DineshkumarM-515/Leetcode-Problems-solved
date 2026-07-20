@@ -6,7 +6,7 @@ class Solution {
         for(int num : costs){
             sum += num;
             if(sum > coins) break;
-            else count++;
+             count++;
         }
 
         return count;
